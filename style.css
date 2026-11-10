@@ -1,0 +1,334 @@
+/* ===== 色票：取自封面 bg.jpg 的海洋色調 ===== */
+:root {
+    --deep: #12304a;        /* 深海藍 */
+    --deep-2: #1b4466;
+    --light: #f6f1e4;       /* 米白沙灘（延續原本 h1 色）*/
+    --cream: #e8e1cf;
+    --accent: #c94b43;      /* 原本的紅 */
+    --sea: #6fb7c9;         /* 淺海藍 */
+    --text-dark: #23323f;
+    --radius: 20px;
+    --nav-h: 64px;
+    --font-title: "Zen Maru Gothic", "Noto Sans TC", sans-serif;
+    --font-body: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--deep);
+    color: var(--text-dark);
+    line-height: 1.8;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ===== 導覽列 ===== */
+.navbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: var(--nav-h);
+    z-index: 100;
+    background: rgba(18, 48, 74, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.3s;
+}
+.navbar.scrolled { background: rgba(18, 48, 74, 0.92); box-shadow: 0 2px 12px rgba(0,0,0,.25); }
+
+.nav-inner {
+    max-width: 1100px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.logo {
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: 1.35rem;
+    color: var(--cream);
+    text-decoration: none;
+    white-space: nowrap;
+}
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 6px;
+}
+.nav-links a {
+    display: block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background .2s, color .2s;
+}
+.nav-links a:hover { background: rgba(255,255,255,.15); }
+.nav-links a.active { background: var(--accent); color: #fff; }
+
+/* ===== 封面 ===== */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: calc(var(--nav-h) + 32px) 16px 80px;
+    overflow: hidden;
+    isolation: isolate;
+}
+/* 直式海報做成模糊滿版背景，避免橫向螢幕硬裁切 */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    z-index: -2;
+    background: url("人魚島的秘密.jpg") center 30% / cover no-repeat;
+    filter: blur(18px) saturate(1.1);
+}
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(18,48,74,.35) 0%, rgba(18,48,74,.55) 60%, var(--deep) 100%);
+}
+.hero-inner {
+    max-width: 1000px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(220px, 360px) 1fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+}
+.hero-poster {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 735 / 1048;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 6px solid var(--light);
+    box-shadow: 0 18px 40px rgba(0,0,0,.45);
+    transform: rotate(-2deg);
+}
+.hero-content { text-align: left; }
+.hero-sub {
+    margin: 0;
+    color: var(--accent);
+    background: var(--light);
+    display: inline-block;
+    padding: 4px 18px;
+    border-radius: 999px;
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+}
+.hero h1 {
+    font-family: var(--font-title);
+    font-weight: 900;
+    color: var(--light);
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    line-height: 1.2;
+    margin: 20px 0 16px;
+    text-shadow: 0 4px 18px rgba(0,0,0,.45);
+    letter-spacing: .05em;
+}
+.countdown {
+    color: #fff;
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+    margin: 0 0 28px;
+    text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+.btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(201,75,67,.45);
+    transition: transform .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+
+/* ===== 共用區塊 ===== */
+.section {
+    padding: 88px 16px;
+    scroll-margin-top: var(--nav-h);
+}
+.section-light { background: var(--light); }
+.section-dark  { background: linear-gradient(180deg, var(--deep) 0%, var(--deep-2) 100%); color: var(--cream); }
+
+.container { max-width: 1100px; margin: 0 auto; }
+
+.section-title {
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    text-align: center;
+    margin: 0 0 40px;
+    color: var(--deep);
+}
+.section-title span {
+    display: block;
+    font-size: .9rem;
+    letter-spacing: .3em;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+.section-dark .section-title { color: var(--light); }
+.section-dark .section-title span { color: var(--sea); }
+
+/* ===== 電影故事 ===== */
+.story-card {
+    max-width: 780px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: var(--radius);
+    padding: clamp(24px, 5vw, 48px);
+    border-top: 6px solid var(--sea);
+    box-shadow: 0 10px 30px rgba(18,48,74,.12);
+}
+.story-card h3 {
+    font-family: var(--font-title);
+    color: var(--accent);
+    margin: 0 0 12px;
+    font-size: 1.3rem;
+}
+.story-card p { margin: 0; font-size: 1.05rem; }
+
+/* ===== 成員介紹 ===== */
+.intro {
+    max-width: 720px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+.member-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 24px;
+}
+.member-card {
+    background: var(--light);
+    color: var(--text-dark);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    text-align: center;
+    transition: transform .25s, box-shadow .25s;
+}
+.member-card:hover { transform: translateY(-6px); box-shadow: 0 12px 26px rgba(0,0,0,.3); }
+.member-card img {
+    width: 140px;
+    height: 140px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 14px;
+    border: 5px solid #fff;
+    box-shadow: 0 0 0 3px var(--sea);
+}
+.member-card h3 {
+    font-family: var(--font-title);
+    font-size: 1.35rem;
+    margin: 0;
+    color: var(--deep);
+}
+.member-card .tag {
+    display: inline-block;
+    margin: 6px 0 12px;
+    padding: 2px 12px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: .85rem;
+}
+.member-card p { margin: 0; font-size: .95rem; text-align: left; }
+.member-card p.tag { text-align: center; }
+
+/* ===== 上映場次 ===== */
+.show-wrap {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 28px;
+    align-items: stretch;
+}
+.show-info {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: clamp(24px, 4vw, 40px);
+    border-left: 6px solid var(--accent);
+    box-shadow: 0 10px 30px rgba(18,48,74,.12);
+    display: flex;
+    align-items: center;
+}
+.show-info p { margin: 0; font-size: 1.05rem; }
+.show-date {
+    background: var(--deep);
+    color: var(--cream);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.show-date .label { margin: 0; letter-spacing: .2em; color: var(--sea); }
+.show-date .date {
+    margin: 4px 0 8px;
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    color: var(--light);
+}
+.countdown-small {
+    margin: 0;
+    display: inline-block;
+    align-self: center;
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 999px;
+}
+
+/* ===== 頁尾 ===== */
+.footer {
+    background: var(--deep);
+    color: var(--cream);
+    text-align: center;
+    padding: 28px 16px;
+    font-size: .9rem;
+}
+.footer p { margin: 0; opacity: .8; }
+
+/* ===== 響應式 ===== */
+@media (max-width: 760px) {
+    .show-wrap { grid-template-columns: 1fr; }
+    .hero-inner { grid-template-columns: 1fr; justify-items: center; }
+    .hero-poster { width: min(62vw, 260px); }
+    .hero-content { text-align: center; }
+}
+@media (max-width: 560px) {
+    .logo { font-size: 1.1rem; }
+    .nav-links { gap: 2px; }
+    .nav-links a { padding: 6px 8px; font-size: .88rem; }
+    .section { padding: 64px 16px; }
+}
+@media (max-width: 380px) {
+    .logo { display: none; }
+    .nav-inner { justify-content: center; }
+}
